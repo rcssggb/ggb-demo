@@ -9,6 +9,8 @@ services:
     tty: true
     container_name: rcssserver
     image: rcssggb/rcssserver:latest
+    volumes:
+      - ./logs:/root/logs
     networks:
       - ggb-network
     ports:

@@ -1,6 +1,10 @@
 FROM ubuntu:18.04 AS build
 ARG VERSION=15.5.0
 WORKDIR /root
+ENV HOME /root
+
+RUN mkdir -p /root/.rcssserver
+RUN mkdir -p /root/logs
 
 RUN apt update && \
     apt -y install autoconf bison clang flex libboost-dev libboost-all-dev libc6-dev make wget
@@ -25,4 +29,4 @@ RUN ldconfig && \
     apt install -y libboost-filesystem1.65.1 libboost-system1.65.1
 
 EXPOSE 6000/udp
-CMD bash -c '/usr/local/bin/rcssserver || sleep infinity'
+CMD bash -c "/usr/local/bin/rcssserver --server::game_log_dir='/root/logs' || sleep infinity"
