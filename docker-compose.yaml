@@ -7,6 +7,7 @@ networks:
 services:
   rcssserver:
     tty: true
+    stop_signal: SIGINT
     container_name: rcssserver
     image: rcssggb/rcssserver:latest
     volumes:
@@ -15,12 +16,17 @@ services:
       - ggb-network
     ports:
       - 6000:6000/udp
+    command:
+      - "/usr/local/bin/rcssserver"
+      - "--server::game_log_dir='/root/logs'"
+      - "--server::text_log_dir='/root/logs'"
     logging:
       options:
        max-size: 50m
 
   rcssmonitor:
     tty: true
+    stop_signal: SIGINT
     container_name: rcssmonitor
     image: rcssggb/rcssmonitor:latest
     networks:

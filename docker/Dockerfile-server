@@ -29,4 +29,4 @@ RUN ldconfig && \
     apt install -y libboost-filesystem1.65.1 libboost-system1.65.1
 
 EXPOSE 6000/udp
-CMD bash -c "/usr/local/bin/rcssserver --server::game_log_dir='/root/logs' || sleep infinity"
+CMD ["/usr/local/bin/rcssserver", "--server::game_log_dir='/root/logs'", "--server::text_log_dir='/root/logs'"]

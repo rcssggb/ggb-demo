@@ -1,3 +1,4 @@
 
 docker/\.DS_Store
 logs/*.rcg
+logs/*.rcl
