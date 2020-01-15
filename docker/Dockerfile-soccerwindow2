@@ -1,14 +1,21 @@
 FROM ubuntu:18.04 AS build
-ARG VERSION=15.2.1
+ARG VERSION=5.1.1
 WORKDIR /home/developer
 
 RUN apt update && \
     apt -y install autoconf bison clang flex libboost-dev libboost-all-dev libc6-dev make wget libqt4-dev \
     libfontconfig1-dev libaudio-dev libxt-dev libsm-dev libice-dev libxi-dev libxrender-dev
 
-RUN wget https://github.com/rcsoccersim/rcssmonitor/releases/download/rcssmonitor-${VERSION}/rcssmonitor-${VERSION}.tar.gz && \
-    tar xfz rcssmonitor-${VERSION}.tar.gz && \
-    cd rcssmonitor-${VERSION} && \
+RUN wget https://osdn.net/dl/rctools/librcsc-4.0.0.tar.gz && \
+    tar xvzf librcsc-4.0.0.tar.gz && \
+    cd librcsc-4.0.0 && \
+    ./configure && \
+    make && \
+    make install
+
+RUN wget https://osdn.net/dl/rctools/soccerwindow2-${VERSION}.tar.gz && \
+    tar xfz soccerwindow2-${VERSION}.tar.gz && \
+    cd soccerwindow2-${VERSION} && \
     ./configure && \
     make && \
     make install
@@ -30,7 +37,7 @@ COPY --from=build /usr/local/share/fonts /usr/local/share/fonts
 # Copy bin files
 COPY --from=build /usr/local/bin /usr/local/bin
 RUN mkdir -p /home/developer
-COPY --from=build /usr/local/bin/rcssmonitor /home/developer
+COPY --from=build /usr/local/bin/soccerwindow2 /home/developer
 
 ##########################
 # This was basically copied from http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
@@ -47,4 +54,4 @@ USER developer
 ENV HOME /home/developer
 ##########################
 
-CMD bash -c 'rcssmonitor --server-host rcssserver || sleep infinity'
+CMD bash -c 'soccerwindow2 --host rcssserver || sleep infinity'
