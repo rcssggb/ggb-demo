@@ -1,5 +1,5 @@
 FROM ubuntu:18.04 AS build
-ARG VERSION=15.6.0
+ARG VERSION=16.0.0
 WORKDIR /root
 ENV HOME /root
 

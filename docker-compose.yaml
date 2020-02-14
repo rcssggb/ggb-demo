@@ -9,7 +9,7 @@ services:
     tty: true
     stop_signal: SIGINT
     container_name: rcssserver
-    image: rcssggb/rcssserver:latest
+    image: rcssggb/rcssserver:16.0.0
     volumes:
       - ./logs:/root/logs
     networks:
