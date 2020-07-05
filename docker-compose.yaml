@@ -28,7 +28,7 @@ services:
     tty: true
     stop_signal: SIGINT
     container_name: rcssmonitor
-    image: rcssggb/rcssmonitor:latest
+    image: rcssggb/rcssmonitor:16.0.0
     networks:
       - ggb-network
     environment:

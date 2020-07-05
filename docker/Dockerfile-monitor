@@ -1,10 +1,11 @@
 FROM ubuntu:18.04 AS build
-ARG VERSION=15.2.1
+ARG VERSION=16.0.0
 WORKDIR /home/developer
 
 RUN apt update && \
-    apt -y install autoconf bison clang flex libboost-dev libboost-all-dev libc6-dev make wget libqt4-dev \
-    libfontconfig1-dev libaudio-dev libxt-dev libsm-dev libice-dev libxi-dev libxrender-dev
+    apt -y install autoconf bison clang flex libboost-dev libboost-all-dev libc6-dev make wget \
+    libfontconfig1-dev libaudio-dev libxt-dev libsm-dev libice-dev libxi-dev libxrender-dev \
+    qtbase5-dev
 
 RUN wget https://github.com/rcsoccersim/rcssmonitor/releases/download/rcssmonitor-${VERSION}/rcssmonitor-${VERSION}.tar.gz && \
     tar xfz rcssmonitor-${VERSION}.tar.gz && \
